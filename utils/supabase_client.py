@@ -1,0 +1,18 @@
+from supabase import create_client, Client
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+def get_supabase_client() -> Client:
+    """Crea y retorna cliente de Supabase"""
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_KEY")
+    
+    if not url or not key:
+        raise ValueError(
+            "SUPABASE_URL y SUPABASE_KEY deben estar configuradas. "
+            "Crea un archivo .env con estas variables."
+        )
+    
+    return create_client(url, key)
