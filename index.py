@@ -1,4 +1,4 @@
-from app import server
+from app import app
 
-if __name__ == "__main__":
-    server.run()
+# Vercel necesita el objeto server, NO app
+server = app.server
