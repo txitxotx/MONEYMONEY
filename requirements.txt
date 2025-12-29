@@ -3,7 +3,4 @@ dash-bootstrap-components==1.5.0
 plotly==5.18.0
 pandas==2.1.4
 yfinance==0.2.33
-python-dateutil==2.8.2
-pytz==2023.3
 supabase==2.3.0
-python-dotenv==1.0.0
