@@ -1,36 +1,33 @@
 import dash
-from dash import dcc, html, Input, Output, callback_context
+from dash import dcc, html, Input, Output
 import dash_bootstrap_components as dbc
-from pages import fondos, acciones, graficas_fondos, graficas_acciones
-from utils.database import Database
-from utils.styles import NAVBAR_STYLE
+import os
 
-# Inicializar app
+# NO importes Database aquí globalmente si usa Supabase
+# from utils.database import Database  # ❌ QUITAR ESTO
+
+from pages import fondos, acciones, graficas_fondos, graficas_acciones
+from utils.styles import NAVBAR_STYLE, PRIMARY_COLOR
+
 app = dash.Dash(
     __name__,
     external_stylesheets=[dbc.themes.CYBORG],
     suppress_callback_exceptions=True,
     title="Investment Dashboard",
-    meta_tags=[
-        {"name": "viewport", "content": "width=device-width, initial-scale=1"}
-    ]
+    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}]
 )
 
-server = app.server
+server = app.server  # ← CRÍTICO: Esto DEBE estar aquí
 
-# Inicializar base de datos
-db = Database()
-
-# Layout principal
+# Layout (sin cambios)
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     
-    # Navbar
     dbc.Navbar(
         dbc.Container([
             html.Div([
                 html.I(className="fas fa-chart-line me-2", 
-                      style={"fontSize": "1.8rem", "color": "#00d4ff"}),
+                      style={"fontSize": "1.8rem", "color": PRIMARY_COLOR}),
                 dbc.NavbarBrand("Investment Dashboard", 
                               className="fw-bold",
                               style={"fontSize": "1.5rem", "color": "#fff"})
@@ -39,37 +36,26 @@ app.layout = html.Div([
             dbc.Nav([
                 dbc.NavItem(dbc.NavLink(
                     [html.I(className="fas fa-wallet me-2"), "Fondos"],
-                    href="/fondos",
-                    id="nav-fondos",
-                    className="nav-link-custom"
+                    href="/fondos", id="nav-fondos", className="nav-link-custom"
                 )),
                 dbc.NavItem(dbc.NavLink(
                     [html.I(className="fas fa-chart-bar me-2"), "Acciones"],
-                    href="/acciones",
-                    id="nav-acciones",
-                    className="nav-link-custom"
+                    href="/acciones", id="nav-acciones", className="nav-link-custom"
                 )),
                 dbc.NavItem(dbc.NavLink(
                     [html.I(className="fas fa-pie-chart me-2"), "Gráficas Fondos"],
-                    href="/graficas-fondos",
-                    id="nav-graf-fondos",
-                    className="nav-link-custom"
+                    href="/graficas-fondos", id="nav-graf-fondos", className="nav-link-custom"
                 )),
                 dbc.NavItem(dbc.NavLink(
                     [html.I(className="fas fa-chart-area me-2"), "Gráficas Acciones"],
-                    href="/graficas-acciones",
-                    id="nav-graf-acciones",
-                    className="nav-link-custom"
+                    href="/graficas-acciones", id="nav-graf-acciones", className="nav-link-custom"
                 )),
             ], navbar=True, className="ms-auto"),
         ], fluid=True),
-        color="dark",
-        dark=True,
-        className="mb-4 navbar-custom",
+        color="dark", dark=True, className="mb-4 navbar-custom",
         style=NAVBAR_STYLE
     ),
     
-    # Contenido
     dbc.Container(
         html.Div(id='page-content'),
         fluid=True,
@@ -81,7 +67,6 @@ app.layout = html.Div([
     "fontFamily": "'Inter', 'Segoe UI', sans-serif"
 })
 
-# Callback navegación
 @app.callback(
     Output('page-content', 'children'),
     Input('url', 'pathname')
@@ -96,5 +81,6 @@ def display_page(pathname):
     else:
         return fondos.layout()
 
+# Solo para ejecución local
 if __name__ == '__main__':
     app.run_server(debug=True, host='0.0.0.0', port=8050)
