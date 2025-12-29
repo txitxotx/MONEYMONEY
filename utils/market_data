@@ -1,0 +1,96 @@
+import yfinance as yf
+from datetime import datetime, timedelta
+import pytz
+
+class MarketData:
+    
+    @staticmethod
+    def get_current_price(ticker):
+        """Obtiene precio actual"""
+        try:
+            stock = yf.Ticker(ticker)
+            data = stock.history(period='1d')
+            if not data.empty:
+                return float(data['Close'].iloc[-1])
+            return None
+        except:
+            return None
+    
+    @staticmethod
+    def get_daily_change(ticker):
+        """Obtiene cambio diario en % y valor absoluto"""
+        try:
+            stock = yf.Ticker(ticker)
+            data = stock.history(period='2d')
+            if len(data) >= 2:
+                current = float(data['Close'].iloc[-1])
+                previous = float(data['Close'].iloc[-2])
+                change_pct = ((current - previous) / previous) * 100
+                change_abs = current - previous
+                return change_pct, change_abs
+            return 0, 0
+        except:
+            return 0, 0
+    
+    @staticmethod
+    def get_ytd_change(ticker, purchase_date):
+        """Obtiene cambio Year-to-Date"""
+        try:
+            stock = yf.Ticker(ticker)
+            current_year = datetime.now().year
+            start_of_year = datetime(current_year, 1, 1)
+            
+            # Si la compra fue este año, usar fecha de compra
+            purchase_dt = datetime.strptime(purchase_date, '%Y-%m-%d')
+            if purchase_dt.year == current_year:
+                start_date = purchase_dt
+            else:
+                start_date = start_of_year
+            
+            data = stock.history(start=start_date.strftime('%Y-%m-%d'))
+            if len(data) >= 2:
+                first_price = float(data['Close'].iloc[0])
+                current_price = float(data['Close'].iloc[-1])
+                ytd_change = ((current_price - first_price) / first_price) * 100
+                return ytd_change
+            return 0
+        except:
+            return 0
+    
+    @staticmethod
+    def get_sector(ticker):
+        """Obtiene el sector de una acción"""
+        try:
+            stock = yf.Ticker(ticker)
+            info = stock.info
+            return info.get('sector', 'N/A')
+        except:
+            return 'N/A'
+    
+    @staticmethod
+    def calculate_profit_loss(purchase_price, current_price, quantity):
+        """Calcula ganancias/pérdidas"""
+        if current_price is None:
+            return 0, 0
+        
+        invested = purchase_price * quantity
+        current_value = current_price * quantity
+        profit_loss = current_value - invested
+        profit_loss_pct = (profit_loss / invested) * 100 if invested > 0 else 0
+        
+        return profit_loss, profit_loss_pct
+    
+    @staticmethod
+    def format_currency(value):
+        """Formatea valores monetarios"""
+        if value is None:
+            return "N/A"
+        return f"€{value:,.2f}"
+    
+    @staticmethod
+    def format_percentage(value):
+        """Formatea porcentajes"""
+        if value is None:
+            return "N/A"
+        sign = "+" if value >= 0 else ""
+        return f"{sign}{value:.2f}%"
