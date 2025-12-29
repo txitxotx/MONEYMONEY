@@ -1,0 +1,204 @@
+/* Importar fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+/* Reset y body */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: #0a0e27 !important;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Navbar personalizado */
+.navbar-custom {
+    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, rgba(20, 27, 58, 0.95), rgba(10, 14, 39, 0.95)) !important;
+}
+
+.nav-link-custom {
+    color: rgba(255, 255, 255, 0.8) !important;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    padding: 8px 16px !important;
+    border-radius: 8px;
+    margin: 0 4px;
+}
+
+.nav-link-custom:hover {
+    color: #00d4ff !important;
+    background: rgba(0, 212, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link-custom.active {
+    color: #00d4ff !important;
+    background: rgba(0, 212, 255, 0.15);
+}
+
+/* Botones */
+.btn-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4) !important;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 230, 118, 0.4);
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 23, 68, 0.4);
+}
+
+/* Cards */
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2) !important;
+}
+
+/* Tablas Dash */
+.dash-table-container {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.dash-table-container .dash-spreadsheet {
+    background-color: #141b3a !important;
+}
+
+.dash-table-container .dash-spreadsheet-inner table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+.dash-table-container .dash-header {
+    background: linear-gradient(135deg, #1a2342, #141b3a) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #00d4ff !important;
+}
+
+.dash-table-container .dash-cell {
+    background-color: #141b3a !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    padding: 14px 16px !important;
+    transition: background-color 0.2s ease;
+}
+
+.dash-table-container .dash-cell:hover {
+    background-color: #1a2342 !important;
+}
+
+/* Inputs personalizados */
+.form-control, .form-select {
+    background-color: #1a2342 !important;
+    border: 1px solid rgba(0, 212, 255, 0.2) !important;
+    color: #ffffff !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #1a2342 !important;
+    border-color: #00d4ff !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25) !important;
+    color: #ffffff !important;
+}
+
+.form-label {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* Modal personalizado */
+.modal-content {
+    background: linear-gradient(135deg, #1a2342, #141b3a) !important;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.modal-title {
+    color: #00d4ff;
+    font-weight: 700;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card, .dash-table-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Gráficas Plotly */
+.js-plotly-plot .plotly {
+    border-radius: 12px;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0e27;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #00d4ff, #6c63ff);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #6c63ff, #00d4ff);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-link-custom {
+        padding: 6px 12px !important;
+        font-size: 0.9rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem !important;
+    }
+}
