@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "index.py",
@@ -10,9 +11,13 @@
       "src": "/(.*)",
       "dest": "index.py"
     }
-  ],
-  "env": {
-    "SUPABASE_URL": "@supabase_url",
-    "SUPABASE_KEY": "@supabase_key"
-  }
+  ]
 }
+```
+
+### 5️⃣ **Verifica las variables de entorno en Vercel**
+
+Ve a tu proyecto en Vercel → **Settings** → **Environment Variables**:
+```
+SUPABASE_URL = https://tuproyecto.supabase.co
+SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
